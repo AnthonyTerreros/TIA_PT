@@ -1,0 +1,39 @@
+# General
+
+.DS_Store
+Thumbs.db
+*.log
+*.swp
+*.swo
+*.swn
+*.bak
+
+# Backend
+/backendpruebatecnicatia/target/       
+/backendpruebatecnicatia/build/        
+/backendpruebatecnicatia/.gradle/      
+/backendpruebatecnicatia/.mvn/         
+/backendpruebatecnicatia/mvnw        
+backendpruebatecnicatia/mvnw.cmd     
+/backendpruebatecnicatia/.idea/    
+/backendpruebatecnicatia/.vscode/
+/backendpruebatecnicatia/*.iml        
+/backendpruebatecnicatia/*.class     
+/backendpruebatecnicatia/.classpat
+/backendpruebatecnicatia/.project 
+/backendpruebatecnicatia/.settings
+
+# Frontend
+/frontendpruebatecnicatia/node_modules/ 
+/frontendpruebatecnicatia/.pnp
+/frontendpruebatecnicatia/.pnp.js
+/frontendpruebatecnicatia/.parcel-cache
+/frontendpruebatecnicatia/dist/       
+/frontendpruebatecnicatia/build/       
+/frontendpruebatecnicatia/.next/        
+/frontendpruebatecnicatia/.nuxt/         
+/frontendpruebatecnicatia/.idea/    
+/frontendpruebatecnicatia/.vscode/
+
+# Env File
+/frontendpruebatecnicatia/.env
