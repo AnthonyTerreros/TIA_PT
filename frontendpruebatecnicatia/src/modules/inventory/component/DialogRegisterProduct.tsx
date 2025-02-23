@@ -16,6 +16,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
+import { IoAdd } from "react-icons/io5";
 
 export default function DialogRegisterProduct() {
   const [isOpen, setIsOpen] = useState(false);
@@ -24,12 +25,13 @@ export default function DialogRegisterProduct() {
     register,
     handleSubmit,
     setValue,
+    reset,
     formState: { errors },
   } = useForm<ProductFormData>({
     resolver: zodResolver(productSchema),
     defaultValues: {
       name: "",
-      price: 0,
+      price: "",
       SKU: "",
       category: "",
       description: "",
@@ -37,15 +39,21 @@ export default function DialogRegisterProduct() {
     },
   });
 
+  console.log(errors);
+
   const onSubmit = (data: ProductFormData) => {
     console.log("Producto creado:", data);
+    reset();
     setIsOpen(false);
   };
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline">Crear Producto</Button>
+        <Button>
+          <IoAdd className="size-6" />
+          Crear Producto
+        </Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
@@ -64,6 +72,7 @@ export default function DialogRegisterProduct() {
             name="price"
             register={register}
             error={errors.price}
+            setValue={setValue}
             type="number"
           />
           <CustomInput
