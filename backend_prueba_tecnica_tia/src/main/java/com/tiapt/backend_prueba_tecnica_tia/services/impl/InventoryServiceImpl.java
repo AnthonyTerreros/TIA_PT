@@ -11,9 +11,11 @@ import com.tiapt.backend_prueba_tecnica_tia.persistence.repositories.ShopReposit
 import com.tiapt.backend_prueba_tecnica_tia.services.interfaces.InventoryService;
 import com.tiapt.backend_prueba_tecnica_tia.services.models.inventory.dtos.InventoryRequestDTO;
 import com.tiapt.backend_prueba_tecnica_tia.services.models.inventory.dtos.ShopAssignProductsRequestDTO;
-import com.tiapt.backend_prueba_tecnica_tia.services.models.inventory.dtos.ShopDTO;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class InventoryServiceImpl  implements InventoryService {
@@ -33,6 +35,7 @@ public class InventoryServiceImpl  implements InventoryService {
     @Transactional
     @Override
     public void assignProductsToShop(ShopAssignProductsRequestDTO shopAssignProductsRequestDTO) {
+        List<InventoryEntity> inventoryToSave = new ArrayList<>();
         for (InventoryRequestDTO request : shopAssignProductsRequestDTO.getInventoryRequestDTOList()) {
             ProductEntity product = productRepository.findById(request.getProductId())
                     .orElseThrow(() -> new ProductNotFoundException(request.getProductId()));
@@ -46,8 +49,8 @@ public class InventoryServiceImpl  implements InventoryService {
             inventory.setProduct(product);
             inventory.setShop(shop);
             inventory.setStock(request.getStock());
-
-            inventoryRepository.save(inventory);
+            inventoryToSave.add(inventory);
         }
+        inventoryRepository.saveAll(inventoryToSave);
     }
 }

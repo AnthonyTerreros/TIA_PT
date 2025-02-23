@@ -23,7 +23,7 @@ public class SaleController {
     public Page<SaleDTO> getSales(Pageable pageable) {
         return saleService.getAllSales(pageable);
     }
-    
+
     @PostMapping
     ResponseEntity<String> registerSale(@RequestBody SaleRequestDTO saleRequestDTO) {
         saleService.createSale(saleRequestDTO);
