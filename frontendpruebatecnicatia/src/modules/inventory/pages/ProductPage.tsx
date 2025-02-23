@@ -1,17 +1,58 @@
+import { DynamicTable } from "@/components/shared/DynamicTable";
 import { Button } from "@/components/ui/button";
+import { Product, ProductFilters } from "@/models";
+import { getProducts } from "@/services/products.service";
+import { useEffect, useState } from "react";
 import { IoAdd } from "react-icons/io5";
 
 export default function ProductPage() {
+  const [products, setProducts] = useState<Product[]>([
+    {
+      id: 1,
+      name: "Ryzen 5 5600g",
+      price: 200,
+      SKU: "344444444",
+      category: "Tech",
+      description: "procesador",
+      state: 1,
+    },
+  ]);
+  const [productFilters, setProductFilters] = useState<ProductFilters>({
+    page: 1,
+    pageSize: 10,
+  });
+
+  const headers = [
+    { name: "Nombre", accessKey: "name" },
+    { name: "Precio", accessKey: "price" },
+    { name: "SKU", accessKey: "SKU" },
+    { name: "Category", accessKey: "category" },
+    { name: "Descripcion", accessKey: "description" },
+    { name: "Estado", accessKey: "state" },
+  ];
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const dataResponse = await getProducts(productFilters);
+      setProductFilters(dataResponse);
+    };
+
+    // fetchData();
+  }, []);
+
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col gap-3 p-2">
       <section>
-        <Button >
-          <IoAdd className="size-5 mr-1" />
+        <h3 className="text-[30px] font-[800]">Productos</h3>
+      </section>
+      <section>
+        <Button>
+          <IoAdd className="size-6" />
           Agregar Producto
         </Button>
       </section>
       <section>
-        
+        <DynamicTable headers={headers} data={products} />
       </section>
     </div>
   );

@@ -10,8 +10,10 @@ export default function MainLayout() {
         <Sidebar />
         <div className="flex flex-col flex-1">
           <Navbar />
-          <main className="flex-1 p-3 shadow-lg bg-gray-100 overflow-auto">
-            <Outlet />
+          <main className="flex-1 p-3 bg-gray-100 overflow-auto">
+            <div className="w-full h-full bg-white shadow-xl">
+              <Outlet />
+            </div>
           </main>
         </div>
       </div>

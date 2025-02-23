@@ -18,7 +18,7 @@ public class ProductRequestDTO {
     @NotNull(message = "Categoria es requido")
     private String category;
 
-    private String descripcion;
+    private String description;
     private Integer state;
 
 }

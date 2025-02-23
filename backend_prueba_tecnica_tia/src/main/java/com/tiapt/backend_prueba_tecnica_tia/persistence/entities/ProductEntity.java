@@ -33,7 +33,7 @@ public class ProductEntity {
     private String category;
 
     @Column(name = "descripcion")
-    private String descripcion;
+    private String description;
 
     @Column(name = "state")
     private Integer state = 1;

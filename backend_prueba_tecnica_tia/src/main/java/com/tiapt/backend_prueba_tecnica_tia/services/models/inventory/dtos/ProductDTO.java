@@ -13,7 +13,7 @@ public class ProductDTO {
 
     private String category;
 
-    private String descripcion;
+    private String description;
 
     private Integer state;
 }

@@ -16,7 +16,7 @@ import logo from "@/assets/logo.png";
 export default function SidebarCustom() {
   return (
     <div>
-      <Sidebar>
+      <Sidebar className="bg-sidebarColor">
         <SidebarHeader>
           <img src={logo} alt="Logo" className="size-32 mx-auto" />
         </SidebarHeader>
