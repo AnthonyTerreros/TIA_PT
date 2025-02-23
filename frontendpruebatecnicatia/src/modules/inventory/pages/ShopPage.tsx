@@ -6,7 +6,7 @@ export default function ShopPage() {
   useEffect(() => {}, []);
 
   return (
-    <div className="flex flex-col gap-3 p-2">
+    <div className="flex flex-col gap-3 py-2 px-5">
       <section>
         <h3 className="text-[30px] font-[800]">Locales</h3>
       </section>

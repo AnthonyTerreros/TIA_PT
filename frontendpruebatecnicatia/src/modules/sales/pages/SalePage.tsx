@@ -9,7 +9,7 @@ export default function SalePage() {
   useEffect(() => {}, []);
 
   return (
-    <div className="flex flex-col gap-3 p-2">
+    <div className="flex flex-col gap-3 py-2 px-5">
       <section>
         <h3 className="text-[30px] font-[800]">Ventas</h3>
       </section>

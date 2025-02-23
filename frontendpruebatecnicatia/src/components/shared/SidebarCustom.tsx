@@ -22,7 +22,7 @@ export default function SidebarCustom() {
         </SidebarHeader>
         <SidebarContent>
           <SidebarGroup>
-            <SidebarGroupLabel>Transacciones</SidebarGroupLabel>
+            <SidebarGroupLabel>Reportes</SidebarGroupLabel>
             <SidebarGroupContent>
               <SidebarMenu>
                 {menuItems.map((it: SidebarMenuItemType) => {

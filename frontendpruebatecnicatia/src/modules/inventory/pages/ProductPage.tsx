@@ -4,6 +4,7 @@ import { Product, ProductFilters } from "@/models";
 import { getProducts } from "@/services/products.service";
 import { useEffect, useState } from "react";
 import { IoAdd } from "react-icons/io5";
+import { toast } from "sonner";
 
 export default function ProductPage() {
   const [products, setProducts] = useState<Product[]>([
@@ -31,6 +32,10 @@ export default function ProductPage() {
     { name: "Estado", accessKey: "state" },
   ];
 
+  const handleAddProduct = () => {
+    toast.success("Product Creado");
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       const dataResponse = await getProducts(productFilters);
@@ -41,12 +46,12 @@ export default function ProductPage() {
   }, []);
 
   return (
-    <div className="flex flex-col gap-3 p-2">
+    <div className="flex flex-col gap-3 py-2 px-5">
       <section>
         <h3 className="text-[30px] font-[800]">Productos</h3>
       </section>
       <section>
-        <Button>
+        <Button onClick={() => handleAddProduct()}>
           <IoAdd className="size-6" />
           Agregar Producto
         </Button>
