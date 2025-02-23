@@ -1,7 +1,6 @@
 package com.tiapt.backend_prueba_tecnica_tia.controllers.inventory;
 
 import com.tiapt.backend_prueba_tecnica_tia.exception.exceptions.ProductNotFoundException;
-import com.tiapt.backend_prueba_tecnica_tia.persistence.entities.ProductEntity;
 import com.tiapt.backend_prueba_tecnica_tia.services.interfaces.ProductService;
 import com.tiapt.backend_prueba_tecnica_tia.services.models.inventory.dtos.ProductDTO;
 import com.tiapt.backend_prueba_tecnica_tia.services.models.inventory.dtos.ProductRequestDTO;

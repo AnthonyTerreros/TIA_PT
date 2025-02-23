@@ -23,13 +23,17 @@ public class SaleEntity {
     @JoinColumn(name = "user_id")
     private UserEntity user;
 
+    @ManyToOne
+    @JoinColumn(name = "shop_id")
+    private ShopEntity shop;
+
     @Column(name = "total")
-    private String total;
+    private Double total;
 
     @Column(name = "payment_method")
-    private String metodoPago;
+    private String paymentMethod = "cash";
 
-    @OneToMany(mappedBy = "sale", cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "sale", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<SaleDetailEntity> saleDetails;
 
     @Column(name = "purchase_date")

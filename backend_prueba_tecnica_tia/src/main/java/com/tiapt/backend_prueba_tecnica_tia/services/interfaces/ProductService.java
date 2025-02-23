@@ -1,4 +1,4 @@
-package com.tiapt.backend_prueba_tecnica_tia.services;
+package com.tiapt.backend_prueba_tecnica_tia.services.interfaces;
 
 import java.util.List;
 import java.util.Optional;

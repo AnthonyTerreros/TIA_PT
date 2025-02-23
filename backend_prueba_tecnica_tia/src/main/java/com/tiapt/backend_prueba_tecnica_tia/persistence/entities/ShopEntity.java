@@ -27,11 +27,11 @@ public class ShopEntity {
     @Column(name = "contact")
     private String contact;
 
-    @Column(name = "is_active")
-    private Boolean isActive;
-
     @Column(name = "phone")
     private String phone;
+
+    @Column(name = "is_active")
+    private Boolean isActive = true;
 
     @Column(name = "opening_time")
     private String openingTime;

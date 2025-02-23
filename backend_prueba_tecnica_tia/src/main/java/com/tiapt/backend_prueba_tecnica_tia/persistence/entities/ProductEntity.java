@@ -20,11 +20,14 @@ public class ProductEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "name")
+    private String name;
+
     @Column(name = "price")
     private Double price;
 
     @Column(name = "SKU")
-    private  String SKU;
+    private String SKU;
 
     @Column(name = "category")
     private String category;
@@ -33,7 +36,7 @@ public class ProductEntity {
     private String descripcion;
 
     @Column(name = "state")
-    private Integer state;
+    private Integer state = 1;
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;
