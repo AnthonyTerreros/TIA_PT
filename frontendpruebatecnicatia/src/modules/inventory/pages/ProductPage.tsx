@@ -1,10 +1,9 @@
 import { DynamicTable } from "@/components/shared/DynamicTable";
-import { Button } from "@/components/ui/button";
 import { Product, ProductFilters } from "@/models";
 import { getProducts } from "@/services/products.service";
 import { useEffect, useState } from "react";
-import { IoAdd } from "react-icons/io5";
 import { toast } from "sonner";
+import DialogRegisterProduct from "../component/DialogRegisterProduct";
 
 export default function ProductPage() {
   const [products, setProducts] = useState<Product[]>([
@@ -51,10 +50,7 @@ export default function ProductPage() {
         <h3 className="text-[30px] font-[800]">Productos</h3>
       </section>
       <section>
-        <Button onClick={() => handleAddProduct()}>
-          <IoAdd className="size-6" />
-          Agregar Producto
-        </Button>
+        <DialogRegisterProduct />
       </section>
       <section>
         <DynamicTable headers={headers} data={products} />
