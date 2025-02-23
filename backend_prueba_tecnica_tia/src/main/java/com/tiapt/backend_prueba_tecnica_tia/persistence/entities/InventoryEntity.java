@@ -5,11 +5,6 @@ import lombok.*;
 
 @Entity
 @Table(name = "products_shops_inventory")
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
 public class InventoryEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,4 +20,47 @@ public class InventoryEntity {
 
     @Column(name = "stock")
     private Long stock;
+
+    public InventoryEntity() {
+
+    }
+
+    public InventoryEntity(Long id, ProductEntity product, ShopEntity shop, Long stock) {
+        this.id = id;
+        this.product = product;
+        this.shop = shop;
+        this.stock = stock;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public ProductEntity getProduct() {
+        return product;
+    }
+
+    public void setProduct(ProductEntity product) {
+        this.product = product;
+    }
+
+    public Long getStock() {
+        return stock;
+    }
+
+    public void setStock(Long stock) {
+        this.stock = stock;
+    }
+
+    public ShopEntity getShop() {
+        return shop;
+    }
+
+    public void setShop(ShopEntity shop) {
+        this.shop = shop;
+    }
 }

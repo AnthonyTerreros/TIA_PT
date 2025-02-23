@@ -1,15 +1,9 @@
 package com.tiapt.backend_prueba_tecnica_tia.persistence.entities;
 
 import jakarta.persistence.*;
-import lombok.*;
 
 @Entity
 @Table(name = "sale_details")
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
 public class SaleDetailEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,4 +20,46 @@ public class SaleDetailEntity {
     @Column(name = "quantity")
     private Integer quantity;
 
+    public SaleDetailEntity() {
+
+    }
+
+    public SaleDetailEntity(Long id, Integer quantity, ProductEntity product, SaleEntity sale) {
+        this.id = id;
+        this.quantity = quantity;
+        this.product = product;
+        this.sale = sale;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
+
+    public ProductEntity getProduct() {
+        return product;
+    }
+
+    public void setProduct(ProductEntity product) {
+        this.product = product;
+    }
+
+    public SaleEntity getSale() {
+        return sale;
+    }
+
+    public void setSale(SaleEntity sale) {
+        this.sale = sale;
+    }
 }

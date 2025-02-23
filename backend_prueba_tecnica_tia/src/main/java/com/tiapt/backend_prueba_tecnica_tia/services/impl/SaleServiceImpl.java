@@ -9,16 +9,14 @@ import com.tiapt.backend_prueba_tecnica_tia.persistence.repositories.ProductRepo
 import com.tiapt.backend_prueba_tecnica_tia.persistence.repositories.SaleRepository;
 import com.tiapt.backend_prueba_tecnica_tia.persistence.repositories.ShopRepository;
 import com.tiapt.backend_prueba_tecnica_tia.services.interfaces.SaleService;
-import com.tiapt.backend_prueba_tecnica_tia.services.models.inventory.mappers.SaleMapper;
 import com.tiapt.backend_prueba_tecnica_tia.services.models.sales.dtos.SaleDTO;
 import com.tiapt.backend_prueba_tecnica_tia.services.models.sales.dtos.SaleDetailDTO;
 import com.tiapt.backend_prueba_tecnica_tia.services.models.sales.dtos.SaleRequestDTO;
+import com.tiapt.backend_prueba_tecnica_tia.services.models.sales.mappers.SaleMapper;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDateTime;
 
 @Service
 public class SaleServiceImpl implements SaleService {
@@ -66,11 +64,10 @@ public class SaleServiceImpl implements SaleService {
                 throw new OutOfStockException(product.getId());
             }
 
-            SaleDetailEntity saleDetail = SaleDetailEntity.builder()
-                    .sale(saleEntity)
-                    .product(product)
-                    .quantity(detailDTO.getQuantity())
-                    .build();
+            SaleDetailEntity saleDetail = new SaleDetailEntity();
+            saleDetail.setSale(saleEntity);
+            saleDetail.setProduct(product);
+            saleDetail.setQuantity(detailDTO.getQuantity());
 
             totalAmount += product.getPrice() * detailDTO.getQuantity();
 

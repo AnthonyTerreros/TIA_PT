@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(name = "/shops")
+@RequestMapping(path = "/api/v1/shops")
 public class ShopController {
     private final ShopService shopService;
     private  final InventoryService inventoryService;
@@ -29,7 +29,7 @@ public class ShopController {
         return shopService.createShop(shopRequestDTO);
     }
 
-    @PostMapping
+    @PostMapping("/assign-products-to-shop")
     ResponseEntity<String> assignProductToShop(@RequestBody ShopAssignProductsRequestDTO shopAssignProductsRequestDTO) {
         inventoryService.assignProductsToShop(shopAssignProductsRequestDTO);
         return ResponseEntity.ok("Productos asignados al local exitosamente.");

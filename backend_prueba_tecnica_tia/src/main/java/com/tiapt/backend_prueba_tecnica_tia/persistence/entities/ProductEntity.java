@@ -1,19 +1,11 @@
 package com.tiapt.backend_prueba_tecnica_tia.persistence.entities;
 
 import jakarta.persistence.*;
-import lombok.*;
 
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 
 @Entity
 @Table(name = "products")
-@Getter
-@Setter
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
 public class ProductEntity {
 
     @Id
@@ -53,5 +45,94 @@ public class ProductEntity {
     @PreUpdate
     protected void onUpdate() {
         this.updatedAt = LocalDateTime.now();
+    }
+
+    public ProductEntity() {
+
+    }
+
+    public ProductEntity(Long id, LocalDateTime updatedAt, LocalDateTime createdAt, Integer state, String description, String category, String SKU, Double price, String name) {
+        this.id = id;
+        this.updatedAt = updatedAt;
+        this.createdAt = createdAt;
+        this.state = state;
+        this.description = description;
+        this.category = category;
+        this.SKU = SKU;
+        this.price = price;
+        this.name = name;
+    }
+
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Integer getState() {
+        return state;
+    }
+
+    public void setState(Integer state) {
+        this.state = state;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getSKU() {
+        return SKU;
+    }
+
+    public void setSKU(String SKU) {
+        this.SKU = SKU;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
     }
 }

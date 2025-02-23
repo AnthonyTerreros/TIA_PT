@@ -1,17 +1,49 @@
 package com.tiapt.backend_prueba_tecnica_tia.services.models.sales.dtos;
 
 import jakarta.validation.constraints.NotNull;
-import lombok.Data;
 
-@Data
 public class SaleDetailDTO {
 
     @NotNull(message = "El id del producto es requerida")
-    public Long productId;
+    private Long productId;
 
     @NotNull(message = "El id de la tienda es requerida")
-    public Long shopId;
+    private Long shopId;
 
     @NotNull(message = "Cantidad es requerida")
-    public Integer quantity;
+    private Integer quantity;
+
+    public SaleDetailDTO() {
+
+    }
+
+    public SaleDetailDTO(Long productId, Integer quantity, Long shopId) {
+        this.productId = productId;
+        this.quantity = quantity;
+        this.shopId = shopId;
+    }
+
+    public Long getProductId() {
+        return productId;
+    }
+
+    public void setProductId(Long productId) {
+        this.productId = productId;
+    }
+
+    public Long getShopId() {
+        return shopId;
+    }
+
+    public void setShopId(Long shopId) {
+        this.shopId = shopId;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
 }

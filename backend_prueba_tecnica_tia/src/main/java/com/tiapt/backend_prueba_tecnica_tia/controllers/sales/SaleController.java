@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(name = "/sales")
+@RequestMapping(path = "/api/v1/sales")
 public class SaleController {
 
     private final SaleService saleService;
