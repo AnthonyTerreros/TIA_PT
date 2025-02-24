@@ -3,7 +3,7 @@ import {
   inventorySchema,
 } from "@/models/validations/inventorySchema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
 import {
   Dialog,
@@ -112,11 +112,11 @@ export default function DialogAssignProductsToShop({
             </div>
           ))}
 
-          {errors.inventory?.inventory?.message && (
+          {/* {errors.inventory?.inventory?.message && (
             <p className="text-red-500 text-sm">
               {errors.inventory?.inventory?.message}
             </p>
-          )}
+          )} */}
 
           <Button
             type="button"

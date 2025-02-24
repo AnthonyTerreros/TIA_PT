@@ -211,11 +211,11 @@ export default function DialogCreateSale({ onSaleAdded }: DialogCreateSale) {
             </div>
           ))}
 
-          {errors.saleDetails?.saleDetails?.message && (
+          {/* {errors.saleDetails?.saleDetails?.message && (
             <p className="text-red-500 text-sm">
               {errors.saleDetails?.saleDetails?.message}
             </p>
-          )}
+          )} */}
 
           <Button
             type="button"

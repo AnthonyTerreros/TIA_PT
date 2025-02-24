@@ -1,4 +1,4 @@
-# Prueba Tecnica TIA S.A. - Gestion y Control de Ventas de Locales.
+# Prueba Técnica TIA S.A. - Gestión y Control de Ventas de Locales.
 
 Nombre: David Terreros
 
@@ -6,7 +6,7 @@ Nombre: David Terreros
 
 Este proyecto consiste en una aplicación **Full-Stack** desarrollada con **React 18 (Vite)** en el frontend y **Spring Boot 3.4.3 con Java 21 (Amazon Corretto)** en el backend, utilizando **PostgreSQL** como base de datos.
 
-## Tecnologias
+## Tecnologías
 
 ### Frontend
 
@@ -23,7 +23,7 @@ Este proyecto consiste en una aplicación **Full-Stack** desarrollada con **Reac
 - JPA
 - Postgres
 
-## Configuracion
+## Configuración
 
 ---
 
@@ -51,6 +51,7 @@ spring.datasource.username=<TU_USUSARIO>
 spring.datasource.password=<TU_PASSWORD>
 spring.datasource.driver-class-name=org.postgresql.Driver
 
+
 spring.jpa.database-platform=org.hibernate.dialect.PostgreSQLDialect
 spring.jpa.hibernate.ddl-auto=update
 spring.jpa.show-sql=true
@@ -66,6 +67,7 @@ Una vez configurado las propiedades de la aplicacion, debes ejecutar los siguien
 # Compilar el proyecto con Maven
 mvn clean package
 
+
 # Ejecutar el backend
 java -jar target/backend_prueba_tecnica_tia-0.0.1-SNAPSHOT.jar
 ```
@@ -74,7 +76,7 @@ java -jar target/backend_prueba_tecnica_tia-0.0.1-SNAPSHOT.jar
 
 ### **Configuración de Variables de Entorno **
 
-En la carpeta frontend, crea un archivo .env y agrega:
+En la carpeta frontend, crea un archivo copia y pega el archivo .env.example, y renombralo como .env y agrega:
 
 ```env
 VITE_URL_BACKEND=http://localhost:8080/api/v1
@@ -87,6 +89,7 @@ Ejecuta los siguientes comandos en la carpeta frontend:
 ```sh
 # Instalar dependencias
 npm install
+
 
 # Iniciar el frontend en modo desarrollo
 npm run dev
@@ -101,6 +104,7 @@ Ejecuta:
 
 ```sh
 docker compose up -d
+
 
 ```
 
