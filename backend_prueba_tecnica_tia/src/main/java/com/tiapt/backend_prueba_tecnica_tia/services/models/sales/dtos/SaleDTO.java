@@ -1,5 +1,8 @@
 package com.tiapt.backend_prueba_tecnica_tia.services.models.sales.dtos;
 
+import com.tiapt.backend_prueba_tecnica_tia.services.models.inventory.dtos.ShopDTO;
+import com.tiapt.backend_prueba_tecnica_tia.services.models.inventory.dtos.UserDTO;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -9,11 +12,15 @@ public class SaleDTO {
 
     private Long shopId;
 
+    private ShopDTO shop;
+
+    private UserDTO user;
+
     private Double total;
 
     private String paymentMethod;
 
-    private List<SaleDetailDTO> saleDTODetails;
+    private List<SaleDetailDTO> saleDetails;
 
     private LocalDateTime purchaseDate;
 
@@ -21,29 +28,15 @@ public class SaleDTO {
 
     }
 
-    public SaleDTO(Long userId, String paymentMethod, Double total, Long shopId, List<SaleDetailDTO> saleDTODetails, LocalDateTime purchaseDate) {
+    public SaleDTO(Long userId, List<SaleDetailDTO> saleDetails, String paymentMethod, Double total, UserDTO user, ShopDTO shop, Long shopId, LocalDateTime purchaseDate) {
         this.userId = userId;
+        this.saleDetails = saleDetails;
         this.paymentMethod = paymentMethod;
         this.total = total;
+        this.user = user;
+        this.shop = shop;
         this.shopId = shopId;
-        this.saleDTODetails = saleDTODetails;
         this.purchaseDate = purchaseDate;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-    public Double getTotal() {
-        return total;
-    }
-
-    public void setTotal(Double total) {
-        this.total = total;
     }
 
     public Long getShopId() {
@@ -54,6 +47,38 @@ public class SaleDTO {
         this.shopId = shopId;
     }
 
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public ShopDTO getShop() {
+        return shop;
+    }
+
+    public void setShop(ShopDTO shop) {
+        this.shop = shop;
+    }
+
+    public UserDTO getUser() {
+        return user;
+    }
+
+    public void setUser(UserDTO user) {
+        this.user = user;
+    }
+
+    public Double getTotal() {
+        return total;
+    }
+
+    public void setTotal(Double total) {
+        this.total = total;
+    }
+
     public String getPaymentMethod() {
         return paymentMethod;
     }
@@ -62,19 +87,19 @@ public class SaleDTO {
         this.paymentMethod = paymentMethod;
     }
 
-    public List<SaleDetailDTO> getSaleDTODetails() {
-        return saleDTODetails;
-    }
-
-    public void setSaleDTODetails(List<SaleDetailDTO> saleDTODetails) {
-        this.saleDTODetails = saleDTODetails;
-    }
-
     public LocalDateTime getPurchaseDate() {
         return purchaseDate;
     }
 
     public void setPurchaseDate(LocalDateTime purchaseDate) {
         this.purchaseDate = purchaseDate;
+    }
+
+    public List<SaleDetailDTO> getSaleDetails() {
+        return saleDetails;
+    }
+
+    public void setSaleDetails(List<SaleDetailDTO> saleDetails) {
+        this.saleDetails = saleDetails;
     }
 }

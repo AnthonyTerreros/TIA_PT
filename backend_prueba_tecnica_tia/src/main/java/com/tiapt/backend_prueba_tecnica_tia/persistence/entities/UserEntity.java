@@ -13,7 +13,7 @@ public class UserEntity {
     private Long id;
 
     @Column(name = "names")
-    private String firstName;
+    private String names;
 
     @Column(name = "phone")
     private String phone;
@@ -51,9 +51,9 @@ public class UserEntity {
 
     }
 
-    public UserEntity(Long id, String firstName, String phone, String email, String password, String home_address, String DNI, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public UserEntity(Long id, String names, String phone, String email, String password, String home_address, String DNI, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
-        this.firstName = firstName;
+        this.names = names;
         this.phone = phone;
         this.email = email;
         this.password = password;
@@ -71,12 +71,12 @@ public class UserEntity {
         this.id = id;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getNames() {
+        return names;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setNames(String firstName) {
+        this.names = firstName;
     }
 
     public String getPhone() {
