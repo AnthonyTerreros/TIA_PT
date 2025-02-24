@@ -6,7 +6,7 @@ export const getShops = async (data: ShopFilters) => {
   return result.data;
 };
 
-export const registerShops = async (data: ShopRequest) => {
+export const registerShop = async (data: ShopRequest) => {
   const result = await apiClient.post("/shops", data);
   return result;
 };

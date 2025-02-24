@@ -17,6 +17,9 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { IoAdd } from "react-icons/io5";
+import { registerProduct } from "@/services/products.service";
+import { ProductRequest } from "@/models";
+import { toast } from "sonner";
 
 export default function DialogRegisterProduct() {
   const [isOpen, setIsOpen] = useState(false);
@@ -39,10 +42,18 @@ export default function DialogRegisterProduct() {
     },
   });
 
-  console.log(errors);
-
-  const onSubmit = (data: ProductFormData) => {
+  const onSubmit = async (data: ProductFormData) => {
     console.log("Producto creado:", data);
+    const dataRequest = {
+      ...data,
+      price: Number(data.price),
+    } as ProductRequest;
+    const responseApi = await registerProduct(dataRequest);
+    if (responseApi.status !== 201) {
+      toast.error("Ocurrio un error. Intenta de nuevo");
+      return;
+    }
+    toast.success("Producto Creado Sastifactoriamente.");
     reset();
     setIsOpen(false);
   };

@@ -14,7 +14,7 @@ export interface Shop {
   address: string;
   contact: string;
   phone: string;
-  isActive: boolean;
+  isActive?: boolean;
   openingTime?: string;
   closingTime?: string;
 }
@@ -62,3 +62,8 @@ export interface ShopFilters extends Pageable {}
 export interface SaleFilters extends Pageable {}
 
 export interface ShopAssignProductRequest {}
+
+export interface SelectItem {
+  label: string;
+  value: number;
+}

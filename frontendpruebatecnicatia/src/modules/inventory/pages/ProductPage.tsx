@@ -2,7 +2,6 @@ import { DynamicTable } from "@/components/shared/DynamicTable";
 import { Product, ProductFilters } from "@/models";
 import { getProducts } from "@/services/products.service";
 import { useEffect, useState } from "react";
-import { toast } from "sonner";
 import DialogRegisterProduct from "../component/DialogRegisterProduct";
 
 export default function ProductPage() {
@@ -31,14 +30,10 @@ export default function ProductPage() {
     { name: "Estado", accessKey: "state" },
   ];
 
-  const handleAddProduct = () => {
-    toast.success("Product Creado");
-  };
-
   useEffect(() => {
     const fetchData = async () => {
       const dataResponse = await getProducts(productFilters);
-      setProductFilters(dataResponse);
+      setProducts(dataResponse);
     };
 
     // fetchData();
