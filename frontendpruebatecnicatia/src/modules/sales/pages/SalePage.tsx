@@ -13,7 +13,7 @@ export default function SalePage() {
       paymentMethod: "cash",
       purchaseDate: new Date().toISOString(),
       shopId: 1,
-      saleDetails: [{ id: 1, productId: 1, quantity: 2, saleId: 1 }],
+      saleDTODetails: [{ id: 1, productId: 1, quantity: 2, saleId: 1 }],
       total: 100,
       userId: 1,
     },

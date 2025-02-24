@@ -13,7 +13,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { IoAdd, IoTrash } from "react-icons/io5";
 import { SaleFormData, saleSchema } from "@/models/validations/saleSchema";
-import { ProductOption, SaleRequest, Shop, ShopOption } from "@/models";
+import { ProductOption, SaleRequest, ShopOption } from "@/models";
 import {
   getProductsAll,
   getProductsByShopId,
@@ -96,6 +96,10 @@ export default function DialogCreateSale({ onSaleAdded }: DialogCreateSale) {
         toast.info("La tienda no tiene productos registrados.");
         return;
       }
+      if (dataResponse.data.length === 0) {
+        toast.info("La tienda no tiene productos registrados.");
+        return;
+      }
       const optionsProducts = productMapper(dataResponse.data);
       setProducts(optionsProducts);
     } catch (error: any) {
@@ -135,8 +139,11 @@ export default function DialogCreateSale({ onSaleAdded }: DialogCreateSale) {
       onSaleAdded();
       setIsOpen(false);
     } catch (ex: any) {
+      console.log(ex.response.data);
       toast.error(
-        `Ocurrio un error. Intenta mas tarde. \nMensaje: ${ex.response.data}`
+        `Ocurrio un error. Intenta mas tarde. \nMensaje: ${
+          ex.response.data || ex.response.data.message
+        }`
       );
     }
   };

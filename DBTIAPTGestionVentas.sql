@@ -45,7 +45,7 @@ CREATE TABLE products_shops_inventory (
     id SERIAL PRIMARY KEY,
     product_id INT NOT NULL,
     shop_id INT NOT NULL,
-    stock INT NOT NULL CHECK (stock > 0),
+    stock INT NOT NULL CHECK (stock >= 0),
     FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE,
     FOREIGN KEY (shop_id) REFERENCES shops(id) ON DELETE CASCADE
 );
