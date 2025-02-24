@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(path = "/api/v1/shops")
 public class ShopController {
@@ -23,6 +25,11 @@ public class ShopController {
     @GetMapping
     public Page<ShopDTO> getShops(Pageable pageable) {
         return shopService.getAllShops(pageable);
+    }
+
+    @GetMapping("/all")
+    public List<ShopDTO> getIndexShops() {
+        return shopService.getShops();
     }
 
     @PostMapping

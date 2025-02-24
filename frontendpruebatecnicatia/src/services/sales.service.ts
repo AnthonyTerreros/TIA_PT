@@ -1,8 +1,10 @@
 import apiClient from "@/api/apiClient";
 import { SaleFilters, SaleRequest } from "@/models";
 
-export const getSales = async (data: SaleFilters) => {
-  const result = await apiClient.get("/sales", { data });
+export const getSales = async ({ page, pageSize }: SaleFilters) => {
+  const result = await apiClient.get("/sales", {
+    params: { page, size: pageSize },
+  });
   return result.data;
 };
 

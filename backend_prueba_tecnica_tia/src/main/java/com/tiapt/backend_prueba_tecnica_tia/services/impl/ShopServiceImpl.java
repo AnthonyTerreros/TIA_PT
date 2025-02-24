@@ -12,6 +12,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class ShopServiceImpl implements ShopService {
 
@@ -26,6 +29,11 @@ public class ShopServiceImpl implements ShopService {
     @Override
     public Page<ShopDTO> getAllShops(Pageable pageable) {
         return shopRepository.findAll(pageable).map(shopMapper::toDto);
+    }
+
+    @Override
+    public List<ShopDTO> getShops() {
+        return shopRepository.findAll().stream().map(shopMapper::toDto).collect(Collectors.toList());
     }
 
     @Override

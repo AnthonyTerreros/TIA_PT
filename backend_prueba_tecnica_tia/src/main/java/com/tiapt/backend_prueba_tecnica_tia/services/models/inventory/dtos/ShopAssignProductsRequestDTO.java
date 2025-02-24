@@ -8,7 +8,6 @@ public class ShopAssignProductsRequestDTO {
 
     public ShopAssignProductsRequestDTO() {
 
-
     }
 
     public ShopAssignProductsRequestDTO(List<InventoryRequestDTO> inventoryRequestDTOList) {

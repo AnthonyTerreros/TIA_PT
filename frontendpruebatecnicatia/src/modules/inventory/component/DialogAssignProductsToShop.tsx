@@ -16,40 +16,22 @@ import {
 import { Button } from "@/components/ui/button";
 import { IoCartOutline, IoTrash } from "react-icons/io5";
 import { CustomSelect } from "@/components/shared/CustomSelect";
-import { InventoryRequest, ProductFilters, SelectItem } from "@/models";
-import { getProducts } from "@/services/products.service";
+import { SelectItem, ShopAssignProductRequest } from "@/models";
 import { CustomInput } from "@/components/shared/CustomInput";
 import { toast } from "sonner";
 import { assignProductsToShop } from "@/services/shop.service";
+import { FaSave } from "react-icons/fa";
 
 interface DialogAssignProductsToShop {
   shopId?: number;
+  products: SelectItem[];
 }
 
 export default function DialogAssignProductsToShop({
   shopId = 1,
+  products,
 }: DialogAssignProductsToShop) {
-  const [products, setProducts] = useState<SelectItem[]>([]);
-
   const [isOpen, setIsOpen] = useState(false);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const dataResult = await getProducts({
-        page: 0,
-        pageSize: 10,
-      } as ProductFilters);
-      const dataMapped = dataResult.map((it: any) => {
-        return {
-          label: it.name,
-          value: it.id,
-        };
-      }) as SelectItem[];
-      setProducts(dataMapped);
-    };
-
-    // fetchData();
-  }, []);
 
   const {
     register,
@@ -72,16 +54,16 @@ export default function DialogAssignProductsToShop({
 
   const onSubmit = async (data: InventoryFormData) => {
     console.log("Inventario creado:", data.inventory);
-    setIsOpen(false);
-    const dataRequest = data.inventory as InventoryRequest[];
-
+    const dataRequest = {
+      inventoryRequestDTOList: data.inventory,
+    } as ShopAssignProductRequest;
     try {
       const responseApi = await assignProductsToShop(dataRequest);
       if (responseApi.status !== 201) {
         toast.error("Ocurrio un error. Intenta de nuevo.");
         return;
       }
-      toast.success("Producto Creado Sastifactoriamente.");
+      toast.success("Productos asignados al Local Sastifactoriamente.");
       reset();
       setIsOpen(false);
     } catch (ex: any) {
@@ -131,6 +113,12 @@ export default function DialogAssignProductsToShop({
             </div>
           ))}
 
+          {errors.inventory?.inventory?.message && (
+            <p className="text-red-500 text-sm">
+              {errors.inventory?.inventory?.message}
+            </p>
+          )}
+
           <Button
             type="button"
             onClick={() => append({ productId: 0, shopId, stock: 1 })}
@@ -139,6 +127,7 @@ export default function DialogAssignProductsToShop({
           </Button>
 
           <Button type="submit" className="w-full">
+            <FaSave size={10} />
             Guardar Inventario
           </Button>
         </form>

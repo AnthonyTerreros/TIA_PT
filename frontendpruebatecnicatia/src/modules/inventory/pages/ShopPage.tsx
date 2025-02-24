@@ -1,11 +1,12 @@
-import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
-import { IoAdd } from "react-icons/io5";
 import DialogAssignProductsToShop from "../component/DialogAssignProductsToShop";
 import { getShops } from "@/services/shop.service";
-import { Shop, ShopFilters } from "@/models";
+import { SelectItem, Shop, ShopFilters } from "@/models";
 import { DynamicTable } from "@/components/shared/DynamicTable";
 import DialogCreateShop from "../component/DialogCreateShop";
+import CustomPagination from "@/components/shared/CustomPagination";
+import { usePagination } from "@/hooks/usePagination";
+import { getProductsAll } from "@/services/products.service";
 
 export default function ShopPage() {
   const [shops, setShops] = useState<Shop[]>([
@@ -20,11 +21,18 @@ export default function ShopPage() {
       closingTime: "23:30",
     },
   ]);
-  const [shopFilters, setShopFilters] = useState<ShopFilters>({
-    page: 1,
-    pageSize: 10,
-    totalPages: 1,
-  });
+
+  const [products, setProducts] = useState<SelectItem[]>([]);
+
+  const {
+    page,
+    pageSize,
+    totalPages,
+    handleNextPage,
+    handlePrevPage,
+    setPage,
+    setTotalPages,
+  } = usePagination();
 
   const headers = [
     { name: "Nombre", accessKey: "name" },
@@ -35,14 +43,32 @@ export default function ShopPage() {
     { name: "Hora de Cierre", accessKey: "closingTime" },
   ];
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const dataResponse = await getShops(shopFilters);
-      setShops(dataResponse);
-    };
+  const fetchData = async () => {
+    const shopFilters = { page, pageSize } as ShopFilters;
 
-    // fetchData();
-  }, []);
+    const [dataResponse, dataProductsResult] = await Promise.all([
+      getShops(shopFilters),
+      getProductsAll(),
+    ]);
+
+    console.log(dataResponse)
+    console.log(dataProductsResult)
+
+    const dataMapped = dataProductsResult.map((it: any) => {
+      return {
+        label: it.name,
+        value: it.id,
+      };
+    }) as SelectItem[];
+    setProducts(dataMapped);
+    setShops(dataResponse.content);
+    setPage(dataResponse.pageable.pageNumber);
+    setTotalPages(dataResponse.totalPages);
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, [page]);
 
   return (
     <div className="flex flex-col gap-3 py-2 px-5">
@@ -50,15 +76,23 @@ export default function ShopPage() {
         <h3 className="text-[30px] font-[800]">Locales</h3>
       </section>
       <section>
-        <DialogCreateShop />
+        <DialogCreateShop onShopAdded={fetchData} />
       </section>
       <section>
         <DynamicTable
           headers={headers}
           data={shops}
           renderActions={(it) => {
-            return <DialogAssignProductsToShop shopId={it.id} />;
+            return (
+              <DialogAssignProductsToShop shopId={it.id} products={products} />
+            );
           }}
+        />
+        <CustomPagination
+          page={page}
+          totalPages={totalPages}
+          handleNextPage={handleNextPage}
+          handlePrevPage={handlePrevPage}
         />
       </section>
     </div>

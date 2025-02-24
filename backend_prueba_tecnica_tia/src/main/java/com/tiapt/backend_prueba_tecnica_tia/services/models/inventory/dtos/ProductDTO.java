@@ -1,6 +1,9 @@
 package com.tiapt.backend_prueba_tecnica_tia.services.models.inventory.dtos;
 
 public class ProductDTO {
+
+    private Long id;
+
     private String name;
 
     private Double price;
@@ -17,13 +20,14 @@ public class ProductDTO {
 
     }
 
-    public ProductDTO(String name, Integer state, Double price, String SKU, String category, String description) {
+    public ProductDTO(String name, Integer state, Double price, String SKU, String category, String description, Long id) {
         this.name = name;
         this.state = state;
         this.price = price;
         this.SKU = SKU;
         this.category = category;
         this.description = description;
+        this.id = id;
     }
 
     public String getName() {
@@ -72,5 +76,13 @@ public class ProductDTO {
 
     public void setPrice(Double price) {
         this.price = price;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

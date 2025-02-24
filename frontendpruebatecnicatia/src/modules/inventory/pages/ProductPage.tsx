@@ -43,7 +43,6 @@ export default function ProductPage() {
     const productFilters = { page, pageSize } as ProductFilters;
     const dataResponse = await getProducts(productFilters);
     setProducts(dataResponse.content);
-    console.log(dataResponse.content.pageable)
     setPage(dataResponse.pageable.pageNumber);
     setTotalPages(dataResponse.totalPages);
   };

@@ -3,6 +3,8 @@ import { getSales } from "@/services/sales.service";
 import { useEffect, useState } from "react";
 import DialogCreateSale from "../components/DialogCreateSale";
 import { DynamicTable } from "@/components/shared/DynamicTable";
+import CustomPagination from "@/components/shared/CustomPagination";
+import { usePagination } from "@/hooks/usePagination";
 
 export default function SalePage() {
   const [sales, setSales] = useState<Sale[]>([
@@ -17,11 +19,15 @@ export default function SalePage() {
     },
   ]);
 
-  const [saleFilters, setSaleFilters] = useState<SaleFilters>({
-    page: 1,
-    pageSize: 10,
-    totalPages: 1,
-  });
+  const {
+    page,
+    pageSize,
+    totalPages,
+    handleNextPage,
+    handlePrevPage,
+    setPage,
+    setTotalPages,
+  } = usePagination();
 
   const headers = [
     { name: "Monto", accessKey: "total" },
@@ -30,13 +36,16 @@ export default function SalePage() {
     { name: "Tienda", accessKey: "shopId" },
   ];
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const dataResponse = await getSales(saleFilters);
-      setSales(dataResponse);
-    };
+  const fetchData = async () => {
+    const saleFilters = { page, pageSize } as SaleFilters;
+    const dataResponse = await getSales(saleFilters);
+    setSales(dataResponse.content);
+    setPage(dataResponse.pageable.pageNumber);
+    setTotalPages(dataResponse.totalPages);
+  };
 
-    // fetchData();
+  useEffect(() => {
+    fetchData();
   }, []);
 
   return (
@@ -45,10 +54,16 @@ export default function SalePage() {
         <h3 className="text-[30px] font-[800]">Ventas</h3>
       </section>
       <section>
-        <DialogCreateSale />
+        <DialogCreateSale onSaleAdded={fetchData} />
       </section>
       <section>
         <DynamicTable headers={headers} data={sales} />
+        <CustomPagination
+          page={page}
+          totalPages={totalPages}
+          handleNextPage={handleNextPage}
+          handlePrevPage={handlePrevPage}
+        />
       </section>
     </div>
   );

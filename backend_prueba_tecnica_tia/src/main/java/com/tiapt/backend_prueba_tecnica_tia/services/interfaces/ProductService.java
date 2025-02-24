@@ -13,6 +13,8 @@ public interface ProductService {
 
     Page<ProductDTO> getAllProducts(Pageable pageable);
 
+    List<ProductDTO> getProducts();
+
     Optional<ProductDTO> getProductById(Long id);
 
     ProductDTO registerProduct(ProductRequestDTO productRequestDTO);

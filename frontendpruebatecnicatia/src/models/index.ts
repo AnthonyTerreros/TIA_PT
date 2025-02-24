@@ -74,7 +74,9 @@ export interface ShopFilters extends Pageable {}
 
 export interface SaleFilters extends Pageable {}
 
-export interface ShopAssignProductRequest {}
+export interface ShopAssignProductRequest {
+  inventoryRequestDTOList: InventoryRequest[]
+}
 
 export interface SelectItem {
   label: string;

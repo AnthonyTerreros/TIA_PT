@@ -13,9 +13,9 @@ import {
 import { Button } from "@/components/ui/button";
 import { IoAdd, IoTrash } from "react-icons/io5";
 import { SaleFormData, saleSchema } from "@/models/validations/saleSchema";
-import { ProductFilters, SaleRequest, SelectItem, ShopFilters } from "@/models";
-import { getProducts } from "@/services/products.service";
-import { getShops } from "@/services/shop.service";
+import { Product, SaleRequest, SelectItem, Shop } from "@/models";
+import { getProductsAll } from "@/services/products.service";
+import { getShopsAll } from "@/services/shop.service";
 import { toast } from "sonner";
 import { registerSale } from "@/services/sales.service";
 
@@ -25,7 +25,11 @@ interface ProductOption extends SelectItem {
 
 type ShopOption = SelectItem;
 
-export default function DialogCreateSale() {
+interface DialogCreateSale {
+  onSaleAdded: VoidFunction;
+}
+
+export default function DialogCreateSale({ onSaleAdded }: DialogCreateSale) {
   const [isOpen, setIsOpen] = useState(false);
   const [products, setProducts] = useState<ProductOption[]>([
     {
@@ -72,17 +76,29 @@ export default function DialogCreateSale() {
     }, 0);
   }, [watch("saleDetails")]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const [dataProductsResult, dataShopsResult] = await Promise.all([
-        getProducts({ page: 1, pageSize: 10 } as ProductFilters),
-        getShops({ page: 1, pageSize: 10 } as ShopFilters),
-      ]);
-      setProducts(dataProductsResult);
-      setShops(dataShopsResult);
-    };
+  const fetchData = async () => {
+    const [dataProductsResult, dataShopsResult] = await Promise.all([
+      getProductsAll(),
+      getShopsAll(),
+    ]);
+    const optionsProducts = dataProductsResult.map((it: Product) => {
+      return {
+        value: it.id,
+        label: it.name,
+      };
+    });
+    const optionsShops = dataShopsResult.map((it: Shop) => {
+      return {
+        value: it.id,
+        label: it.name,
+      };
+    });
+    setProducts(optionsProducts);
+    setShops(optionsShops);
+  };
 
-    // fetchData();
+  useEffect(() => {
+    fetchData();
   }, []);
 
   const onSubmit = async (data: SaleFormData) => {
@@ -101,6 +117,7 @@ export default function DialogCreateSale() {
       }
       toast.success("Producto Creado Sastifactoriamente.");
       reset();
+      onSaleAdded();
       setIsOpen(false);
     } catch (ex: any) {
       toast.error("Ocurrio un error. Intenta mas tarde.");

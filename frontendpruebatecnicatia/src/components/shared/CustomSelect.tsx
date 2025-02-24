@@ -25,7 +25,6 @@ export function CustomSelect({
   setValue,
   getId = true,
 }: CustomSelectProps) {
-  console.log(options)
   return (
     <div className="flex flex-col space-y-1">
       <Label>{label}</Label>
@@ -36,8 +35,8 @@ export function CustomSelect({
           <SelectValue placeholder="Selecciona un producto" />
         </SelectTrigger>
         <SelectContent>
-          {options.map((option) => (
-            <SelectItem key={option.value} value={String(option.value)}>
+          {options.map((option, idx) => (
+            <SelectItem key={`${option.value}-${idx}`} value={String(option.value)}>
               {option.label}
             </SelectItem>
           ))}

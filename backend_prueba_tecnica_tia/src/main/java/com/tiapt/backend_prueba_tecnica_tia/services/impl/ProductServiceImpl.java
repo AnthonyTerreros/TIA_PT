@@ -1,6 +1,5 @@
 package com.tiapt.backend_prueba_tecnica_tia.services.impl;
 
-import com.tiapt.backend_prueba_tecnica_tia.exception.exceptions.ProductNotFoundException;
 import com.tiapt.backend_prueba_tecnica_tia.persistence.entities.ProductEntity;
 import com.tiapt.backend_prueba_tecnica_tia.persistence.repositories.ProductRepository;
 import com.tiapt.backend_prueba_tecnica_tia.services.interfaces.ProductService;
@@ -14,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -30,6 +30,11 @@ public class ProductServiceImpl implements ProductService {
     public Page<ProductDTO> getAllProducts(Pageable pageable) {
         return productRepository.findAll(pageable)
                 .map(productMapper::toDto);
+    }
+
+    @Override
+    public List<ProductDTO> getProducts() {
+        return productRepository.findAll().stream().map(productMapper::toDto).collect(Collectors.toList());
     }
 
     @Override

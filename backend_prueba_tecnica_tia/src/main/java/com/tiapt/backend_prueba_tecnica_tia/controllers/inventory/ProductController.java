@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(path = "/api/v1/products")
 public class ProductController {
@@ -29,6 +31,11 @@ public class ProductController {
     @GetMapping
     public Page<ProductDTO> getProducts(Pageable pageable) {
         return productService.getAllProducts(pageable);
+    }
+
+    @GetMapping("/all")
+    public List<ProductDTO> getAllProducts() {
+        return productService.getProducts();
     }
 
     @GetMapping("/{id}")

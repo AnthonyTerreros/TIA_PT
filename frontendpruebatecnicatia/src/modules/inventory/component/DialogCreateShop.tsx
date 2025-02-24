@@ -17,7 +17,13 @@ import { FaSave } from "react-icons/fa";
 import { IoAdd } from "react-icons/io5";
 import { toast } from "sonner";
 
-export default function DialogCreateShop() {
+interface DialogCreateShopProps {
+  onShopAdded: VoidFunction;
+}
+
+export default function DialogCreateShop({
+  onShopAdded,
+}: DialogCreateShopProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   const {
@@ -48,8 +54,9 @@ export default function DialogCreateShop() {
         toast.error("Ocurrio un error. Intenta de nuevo.");
         return;
       }
-      toast.success("Producto Creado Sastifactoriamente.");
+      toast.success("Local Creado Sastifactoriamente.");
       reset();
+      onShopAdded();
       setIsOpen(false);
     } catch (ex: any) {
       toast.error("Ocurrio un error. Intenta mas tarde.");
