@@ -24,7 +24,7 @@ public class ProductEntity {
     @Column(name = "category")
     private String category;
 
-    @Column(name = "descripcion")
+    @Column(name = "description")
     private String description;
 
     @Column(name = "state")

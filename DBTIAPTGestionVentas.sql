@@ -1,11 +1,11 @@
 -- Crear la base de datos
 CREATE DATABASE DBTIAPTGestionVentas;
-\c DB_PRUEBA1;
+-- \c DB_PRUEBA1;
 
 -- Tabla de Usuarios
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
-    first_name VARCHAR(100) NOT NULL,
+    names VARCHAR(100) NOT NULL,
     phone VARCHAR(20) NOT NULL,
     email VARCHAR(100) UNIQUE NOT NULL,
     password TEXT NOT NULL,
@@ -72,7 +72,7 @@ CREATE TABLE sale_details (
     FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE
 );
 
-INSERT INTO users (first_name, phone, email, password, home_address, DNI)
+INSERT INTO users (names, phone, email, password, home_address, DNI)
 VALUES 
 ('David Terreros', '123456789', 'dterrero@gmail.com', '1234', 'Av. Siempre Viva 123', '987654321'),
 ('Ana Gómez', '987654321', 'ana@example.com', 'pass123', 'Calle 45', '123456789'),
@@ -99,12 +99,14 @@ VALUES
 ('Smartphone', 800.00, 'SMT-002', 'Electrónica', 'Smartphone con cámara de 48MP'),
 ('Teclado Mecánico', 100.00, 'KB-003', 'Accesorios', 'Teclado mecánico RGB'),
 ('Monitor 27"', 300.00, 'MON-004', 'Periféricos', 'Monitor Full HD 144Hz'),
-('Audífonos Bluetooth', 50.00, 'AUD-005', 'Audio', 'Audífonos inalámbricos de alta calidad');
+('Audífonos Bluetooth', 50.00, 'AUD-005', 'Audio', 'Audífonos inalámbricos de alta calidad'),
+('Audífonos Bluetooth Buds 2 Pro', 150.00, 'SAMSUNG-005', 'Audio', 'Audífonos inalámbricos de alta calidad con cancelacion de ruido.');
+
 
 INSERT INTO products_shops_inventory (product_id, shop_id, stock)
 VALUES 
 (1, 1, 10), (1, 2, 15), (2, 3, 20), (3, 4, 5), (4, 5, 8),
-(2, 1, 12), (3, 2, 18), (4, 3, 25), (5, 4, 30), (1, 5, 7);
+(2, 1, 12), (3, 2, 18), (4, 3, 25), (5, 4, 30), (1, 5, 7), (6, 1, 50);
 
 INSERT INTO sales (user_id, shop_id, total, payment_method)
 VALUES 

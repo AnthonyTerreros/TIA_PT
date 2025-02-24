@@ -12,9 +12,9 @@ public class SaleDTO {
 
     private Long shopId;
 
-    private ShopDTO shop;
-
-    private UserDTO user;
+//    private ShopDTO shop;
+//
+//    private UserDTO user;
 
     private Double total;
 
@@ -28,14 +28,24 @@ public class SaleDTO {
 
     }
 
-    public SaleDTO(Long userId, List<SaleDetailDTO> saleDetails, String paymentMethod, Double total, UserDTO user, ShopDTO shop, Long shopId, LocalDateTime purchaseDate) {
+//    public SaleDTO(Long userId, List<SaleDetailDTO> saleDetails, String paymentMethod, Double total, UserDTO user, ShopDTO shop, Long shopId, LocalDateTime purchaseDate) {
+//        this.userId = userId;
+//        this.saleDetails = saleDetails;
+//        this.paymentMethod = paymentMethod;
+//        this.total = total;
+//        this.user = user;
+//        this.shop = shop;
+//        this.shopId = shopId;
+//        this.purchaseDate = purchaseDate;
+//    }
+
+
+    public SaleDTO(Long userId, Long shopId, Double total, String paymentMethod, List<SaleDetailDTO> saleDetails, LocalDateTime purchaseDate) {
         this.userId = userId;
-        this.saleDetails = saleDetails;
-        this.paymentMethod = paymentMethod;
-        this.total = total;
-        this.user = user;
-        this.shop = shop;
         this.shopId = shopId;
+        this.total = total;
+        this.paymentMethod = paymentMethod;
+        this.saleDetails = saleDetails;
         this.purchaseDate = purchaseDate;
     }
 
@@ -55,21 +65,21 @@ public class SaleDTO {
         this.userId = userId;
     }
 
-    public ShopDTO getShop() {
-        return shop;
-    }
-
-    public void setShop(ShopDTO shop) {
-        this.shop = shop;
-    }
-
-    public UserDTO getUser() {
-        return user;
-    }
-
-    public void setUser(UserDTO user) {
-        this.user = user;
-    }
+//    public ShopDTO getShop() {
+//        return shop;
+//    }
+//
+//    public void setShop(ShopDTO shop) {
+//        this.shop = shop;
+//    }
+//
+//    public UserDTO getUser() {
+//        return user;
+//    }
+//
+//    public void setUser(UserDTO user) {
+//        this.user = user;
+//    }
 
     public Double getTotal() {
         return total;
