@@ -18,7 +18,7 @@ export default function SidebarCustom() {
     <div>
       <Sidebar className="bg-sidebarColor">
         <SidebarHeader>
-          <img src={logo} alt="Logo" className="size-32 mx-auto" />
+          <img src={logo} alt="Logo" className="h-32 w-40 mx-auto" />
         </SidebarHeader>
         <SidebarContent>
           <SidebarGroup>

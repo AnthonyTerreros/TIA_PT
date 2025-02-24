@@ -25,7 +25,7 @@ export function CustomInput({
       <Input
         id={name}
         type={type}
-        {...register(name)}
+        {...register(name, { valueAsNumber: type === "number" })}
         onChange={(e) => {
           if (type === "number" && setValue) {
             const value = e.target.value === "" ? "" : Number(e.target.value);

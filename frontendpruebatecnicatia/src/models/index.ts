@@ -19,14 +19,13 @@ export interface Shop {
   closingTime?: string;
 }
 
-export interface Sale {
+export interface User {
   id?: number;
-  userId: number;
-  shopId: number;
-  saleDetails: SaleDetail[];
-  paymentMethod: string;
-  total: number;
-  purchaseDate: string;
+  firstName: string;
+  phone: string;
+  email: string;
+  home_address: string;
+  DNI: string;
 }
 
 export interface Inventory {
@@ -35,10 +34,22 @@ export interface Inventory {
   stock: number;
 }
 
+export interface Sale {
+  id?: number;
+  userId: number;
+  user?: User;
+  shopId: number;
+  shop?: Shop;
+  saleDetails: SaleDetail[];
+  paymentMethod: string;
+  total: number;
+  purchaseDate: string;
+}
+
 export interface SaleDetail {
   id?: number;
   productId: number;
-  saleId: number;
+  saleId?: number;
   quantity: number;
 }
 
@@ -48,7 +59,8 @@ export interface ShopRequest extends Omit<Shop, "id"> {}
 
 export interface SaleRequest extends Omit<Sale, "id"> {}
 
-export interface InventoryRequest extends Omit<Inventory, "id"> {}
+export interface InventoryRequest
+  extends Omit<Inventory, "id" | "shop" | "user"> {}
 
 export interface Pageable {
   page: number;

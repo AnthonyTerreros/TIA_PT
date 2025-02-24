@@ -12,12 +12,15 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+
 import { Button } from "@/components/ui/button";
-import { IoAdd, IoTrash } from "react-icons/io5";
+import { IoCartOutline, IoTrash } from "react-icons/io5";
 import { CustomSelect } from "@/components/shared/CustomSelect";
-import { ProductFilters, SelectItem } from "@/models";
+import { InventoryRequest, ProductFilters, SelectItem } from "@/models";
 import { getProducts } from "@/services/products.service";
 import { CustomInput } from "@/components/shared/CustomInput";
+import { toast } from "sonner";
+import { assignProductsToShop } from "@/services/shop.service";
 
 interface DialogAssignProductsToShop {
   shopId?: number;
@@ -45,13 +48,14 @@ export default function DialogAssignProductsToShop({
       setProducts(dataMapped);
     };
 
-    fetchData();
+    // fetchData();
   }, []);
 
   const {
     register,
     handleSubmit,
     setValue,
+    reset,
     control,
     formState: { errors },
   } = useForm<InventoryFormData>({
@@ -66,17 +70,31 @@ export default function DialogAssignProductsToShop({
     name: "inventory",
   });
 
-  const onSubmit = (data: InventoryFormData) => {
+  const onSubmit = async (data: InventoryFormData) => {
     console.log("Inventario creado:", data.inventory);
     setIsOpen(false);
+    const dataRequest = data.inventory as InventoryRequest[];
+
+    try {
+      const responseApi = await assignProductsToShop(dataRequest);
+      if (responseApi.status !== 201) {
+        toast.error("Ocurrio un error. Intenta de nuevo.");
+        return;
+      }
+      toast.success("Producto Creado Sastifactoriamente.");
+      reset();
+      setIsOpen(false);
+    } catch (ex: any) {
+      toast.error("Ocurrio un error. Intenta mas tarde.");
+    }
   };
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
         <Button>
-          <IoAdd className="size-6" />
-          Asignar Productos
+          <IoCartOutline className="size-6" />
+          Asignar
         </Button>
       </DialogTrigger>
       <DialogContent>

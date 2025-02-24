@@ -48,14 +48,19 @@ export default function DialogRegisterProduct() {
       ...data,
       price: Number(data.price),
     } as ProductRequest;
-    const responseApi = await registerProduct(dataRequest);
-    if (responseApi.status !== 201) {
-      toast.error("Ocurrio un error. Intenta de nuevo");
-      return;
+
+    try {
+      const responseApi = await registerProduct(dataRequest);
+      if (responseApi.status !== 201) {
+        toast.error("Ocurrio un error. Intenta de nuevo");
+        return;
+      }
+      toast.success("Producto Creado Sastifactoriamente.");
+      reset();
+      setIsOpen(false);
+    } catch (ex: any) {
+      toast.error("Ocurrio un error. Intenta mas tarde.");
     }
-    toast.success("Producto Creado Sastifactoriamente.");
-    reset();
-    setIsOpen(false);
   };
 
   return (

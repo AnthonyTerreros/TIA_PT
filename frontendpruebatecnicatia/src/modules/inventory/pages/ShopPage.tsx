@@ -27,10 +27,9 @@ export default function ShopPage() {
 
   const headers = [
     { name: "Nombre", accessKey: "name" },
-    { name: "Direccion", accessKey: "address" },
-    { name: "Contacto", accessKey: "contacto" },
-    { name: "Telefono", accessKey: "phone" },
-    { name: "Descripcion", accessKey: "description" },
+    { name: "Dirección", accessKey: "address" },
+    { name: "Contacto", accessKey: "contact" },
+    { name: "Teléfono", accessKey: "phone" },
     { name: "Hora de Apertura", accessKey: "openingTime" },
     { name: "Hora de Cierre", accessKey: "closingTime" },
   ];
@@ -50,7 +49,7 @@ export default function ShopPage() {
         <h3 className="text-[30px] font-[800]">Locales</h3>
       </section>
       <section>
-        <DialogCreateShop  />
+        <DialogCreateShop />
       </section>
       <section>
         <DynamicTable
