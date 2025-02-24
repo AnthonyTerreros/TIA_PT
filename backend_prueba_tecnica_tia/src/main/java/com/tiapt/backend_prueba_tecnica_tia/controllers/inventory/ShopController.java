@@ -5,6 +5,7 @@ import com.tiapt.backend_prueba_tecnica_tia.services.interfaces.ShopService;
 import com.tiapt.backend_prueba_tecnica_tia.services.models.inventory.dtos.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,13 +26,14 @@ public class ShopController {
     }
 
     @PostMapping
-    public ShopDTO registerShop(@RequestBody ShopRequestDTO shopRequestDTO) {
-        return shopService.createShop(shopRequestDTO);
+    public ResponseEntity<ShopDTO> registerShop(@RequestBody ShopRequestDTO shopRequestDTO) {
+        ShopDTO shopDTO = shopService.createShop(shopRequestDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(shopDTO);
     }
 
     @PostMapping("/assign-products-to-shop")
     ResponseEntity<String> assignProductToShop(@RequestBody ShopAssignProductsRequestDTO shopAssignProductsRequestDTO) {
         inventoryService.assignProductsToShop(shopAssignProductsRequestDTO);
-        return ResponseEntity.ok("Productos asignados al local exitosamente.");
+        return ResponseEntity.status(HttpStatus.CREATED).body("Productos asignados al local exitosamente.");
     }
 }

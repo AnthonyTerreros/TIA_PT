@@ -6,6 +6,7 @@ import com.tiapt.backend_prueba_tecnica_tia.services.models.sales.dtos.SaleDTO;
 import com.tiapt.backend_prueba_tecnica_tia.services.models.sales.dtos.SaleRequestDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,6 +28,6 @@ public class SaleController {
     @PostMapping
     ResponseEntity<String> registerSale(@RequestBody SaleRequestDTO saleRequestDTO) {
         saleService.createSale(saleRequestDTO);
-        return ResponseEntity.ok("Venta registrada sastifactoriamente.");
+        return ResponseEntity.status(HttpStatus.CREATED).body("Venta registrada sastifactoriamente.");
     }
 }

@@ -2,7 +2,7 @@ export interface Product {
   id?: number;
   name: string;
   price: number;
-  SKU: string;
+  sku: string;
   category: string;
   description?: string;
   state: number;
@@ -65,6 +65,7 @@ export interface InventoryRequest
 export interface Pageable {
   page: number;
   pageSize: number;
+  totalPages: number;
 }
 
 export interface ProductFilters extends Pageable {}

@@ -21,7 +21,13 @@ import { registerProduct } from "@/services/products.service";
 import { ProductRequest } from "@/models";
 import { toast } from "sonner";
 
-export default function DialogRegisterProduct() {
+interface DialogRegisterProductProps {
+  onProductAdded: VoidFunction;
+}
+
+export default function DialogRegisterProduct({
+  onProductAdded,
+}: DialogRegisterProductProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   const {
@@ -34,8 +40,8 @@ export default function DialogRegisterProduct() {
     resolver: zodResolver(productSchema),
     defaultValues: {
       name: "",
-      price: "",
-      SKU: "",
+      price: 0,
+      sku: "",
       category: "",
       description: "",
       state: 1,
@@ -57,6 +63,7 @@ export default function DialogRegisterProduct() {
       }
       toast.success("Producto Creado Sastifactoriamente.");
       reset();
+      onProductAdded();
       setIsOpen(false);
     } catch (ex: any) {
       toast.error("Ocurrio un error. Intenta mas tarde.");
@@ -93,9 +100,15 @@ export default function DialogRegisterProduct() {
           />
           <CustomInput
             label="SKU"
-            name="SKU"
+            name="sku"
             register={register}
-            error={errors.SKU}
+            error={errors.sku}
+          />
+          <CustomInput
+            label="Categoria"
+            name="category"
+            register={register}
+            error={errors.category}
           />
           <CustomInput
             label="Descripción"

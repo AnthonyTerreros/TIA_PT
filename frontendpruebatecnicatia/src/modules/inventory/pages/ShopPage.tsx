@@ -23,6 +23,7 @@ export default function ShopPage() {
   const [shopFilters, setShopFilters] = useState<ShopFilters>({
     page: 1,
     pageSize: 10,
+    totalPages: 1,
   });
 
   const headers = [

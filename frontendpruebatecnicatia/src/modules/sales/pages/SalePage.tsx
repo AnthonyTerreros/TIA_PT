@@ -20,6 +20,7 @@ export default function SalePage() {
   const [saleFilters, setSaleFilters] = useState<SaleFilters>({
     page: 1,
     pageSize: 10,
+    totalPages: 1,
   });
 
   const headers = [

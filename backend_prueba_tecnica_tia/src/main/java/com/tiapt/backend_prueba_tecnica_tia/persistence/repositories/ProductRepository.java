@@ -2,6 +2,7 @@ package com.tiapt.backend_prueba_tecnica_tia.persistence.repositories;
 
 import com.tiapt.backend_prueba_tecnica_tia.persistence.entities.ProductEntity;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;

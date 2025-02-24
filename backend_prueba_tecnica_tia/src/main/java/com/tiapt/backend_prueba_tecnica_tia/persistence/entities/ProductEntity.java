@@ -28,7 +28,7 @@ public class ProductEntity {
     private String description;
 
     @Column(name = "state")
-    private Integer state = 1;
+    private Integer state;
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;
@@ -40,6 +40,7 @@ public class ProductEntity {
     protected void onCreate() {
         this.createdAt = LocalDateTime.now();
         this.updatedAt = LocalDateTime.now();
+        this.state = 1;
     }
 
     @PreUpdate
@@ -134,5 +135,20 @@ public class ProductEntity {
 
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    @Override
+    public String toString() {
+        return "ProductEntity{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                ", SKU='" + SKU + '\'' +
+                ", category='" + category + '\'' +
+                ", description='" + description + '\'' +
+                ", state=" + state +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                '}';
     }
 }
