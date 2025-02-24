@@ -51,10 +51,6 @@ export default function ShopPage() {
       getShops(shopFilters),
       getProductsAll(),
     ]);
-
-    console.log(dataResponse);
-    console.log(dataProductsResult);
-
     const dataMapped = productMapper(dataProductsResult);
     setProducts(dataMapped);
     setShops(dataResponse.content);

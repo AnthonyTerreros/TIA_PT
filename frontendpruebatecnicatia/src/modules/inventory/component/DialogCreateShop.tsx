@@ -46,7 +46,6 @@ export default function DialogCreateShop({
   });
 
   const onSubmit = async (data: ShopFormData) => {
-    console.log("Shop creado:", data);
     const dataRequest = data as ShopRequest;
     try {
       const responseApi = await registerShop(dataRequest);

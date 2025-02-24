@@ -16,7 +16,7 @@ const router = createBrowserRouter([
       { path: "sales", element: <SalePage /> },
     ],
   },
-  { path: "", element: <Navigate to="/login" /> },
+  { path: "", element: <Navigate to="/dashboard/products" /> },
 ]);
 
 export default router;

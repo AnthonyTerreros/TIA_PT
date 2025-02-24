@@ -49,7 +49,6 @@ export default function DialogRegisterProduct({
   });
 
   const onSubmit = async (data: ProductFormData) => {
-    console.log("Producto creado:", data);
     const dataRequest = {
       ...data,
       price: Number(data.price),

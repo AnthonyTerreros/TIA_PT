@@ -53,7 +53,6 @@ export default function DialogAssignProductsToShop({
   });
 
   const onSubmit = async (data: InventoryFormData) => {
-    console.log("Inventario creado:", data.inventory);
     const dataRequest = {
       inventoryRequestDTOList: data.inventory,
     } as ShopAssignProductRequest;

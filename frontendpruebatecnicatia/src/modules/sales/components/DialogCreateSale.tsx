@@ -139,7 +139,6 @@ export default function DialogCreateSale({ onSaleAdded }: DialogCreateSale) {
       onSaleAdded();
       setIsOpen(false);
     } catch (ex: any) {
-      console.log(ex.response.data);
       toast.error(
         `Ocurrio un error. Intenta mas tarde. \nMensaje: ${
           ex.response.data || ex.response.data.message
