@@ -7,6 +7,7 @@ import DialogCreateShop from "../component/DialogCreateShop";
 import CustomPagination from "@/components/shared/CustomPagination";
 import { usePagination } from "@/hooks/usePagination";
 import { getProductsAll } from "@/services/products.service";
+import { productMapper } from "@/utils/mappers";
 
 export default function ShopPage() {
   const [shops, setShops] = useState<Shop[]>([
@@ -51,15 +52,10 @@ export default function ShopPage() {
       getProductsAll(),
     ]);
 
-    console.log(dataResponse)
-    console.log(dataProductsResult)
+    console.log(dataResponse);
+    console.log(dataProductsResult);
 
-    const dataMapped = dataProductsResult.map((it: any) => {
-      return {
-        label: it.name,
-        value: it.id,
-      };
-    }) as SelectItem[];
+    const dataMapped = productMapper(dataProductsResult);
     setProducts(dataMapped);
     setShops(dataResponse.content);
     setPage(dataResponse.pageable.pageNumber);

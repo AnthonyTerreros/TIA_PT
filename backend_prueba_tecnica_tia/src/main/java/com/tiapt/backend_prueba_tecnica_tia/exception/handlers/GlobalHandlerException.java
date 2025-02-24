@@ -1,5 +1,7 @@
 package com.tiapt.backend_prueba_tecnica_tia.exception.handlers;
 
+import com.tiapt.backend_prueba_tecnica_tia.exception.exceptions.NotFoundProductInShopException;
+import com.tiapt.backend_prueba_tecnica_tia.exception.exceptions.OutOfStockException;
 import com.tiapt.backend_prueba_tecnica_tia.exception.exceptions.ShopNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +20,16 @@ public class GlobalHandlerException {
 
     @ExceptionHandler(ShopNotFoundException.class)
     public ResponseEntity<String> handleShopNotFoundException(ShopNotFoundException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+    }
+    @ExceptionHandler(OutOfStockException.class)
+    public ResponseEntity<String> handleShopNotFoundException(OutOfStockException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+    }
+
+
+    @ExceptionHandler(NotFoundProductInShopException.class)
+    public ResponseEntity<String> handleNotFoundProductInShopException(NotFoundProductInShopException ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
     }
 }

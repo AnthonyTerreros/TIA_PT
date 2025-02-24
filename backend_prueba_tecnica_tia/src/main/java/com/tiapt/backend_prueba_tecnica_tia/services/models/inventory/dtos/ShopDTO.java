@@ -19,14 +19,22 @@ public class ShopDTO {
 
     }
 
-    public ShopDTO(Long id, String name, String address, String contact, String phone, String openingTime, String closingTime) {
-        this.id = id;
+    public ShopDTO(String name, Long id, String address, String contact, String phone, String openingTime, String closingTime) {
         this.name = name;
+        this.id = id;
         this.address = address;
         this.contact = contact;
         this.phone = phone;
         this.openingTime = openingTime;
         this.closingTime = closingTime;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {

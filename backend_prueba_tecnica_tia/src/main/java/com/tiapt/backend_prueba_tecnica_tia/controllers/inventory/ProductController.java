@@ -44,6 +44,11 @@ public class ProductController {
                 .orElseThrow(() -> new ProductNotFoundException(id));
     }
 
+    @GetMapping("/shop/{shopId}")
+    public List<ProductDTO> getProductsByShopId(@PathVariable Long shopId) {
+        return productService.findAvailableProductsByShopId(shopId);
+    }
+
     @PostMapping
     public ResponseEntity<ProductDTO> createProduct(@RequestBody ProductRequestDTO productRequestDTO) {
         ProductDTO productDTO = productService.registerProduct(productRequestDTO);

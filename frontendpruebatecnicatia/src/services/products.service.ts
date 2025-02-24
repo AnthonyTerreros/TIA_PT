@@ -8,6 +8,11 @@ export const getProducts = async ({ page, pageSize }: ProductFilters) => {
   return result.data;
 };
 
+export const getProductsByShopId = async (shopId: number) => {
+  const result = await apiClient.get(`/products/shop/${shopId}`);
+  return result;
+};
+
 export const getProductsAll = async () => {
   try {
     const result = await apiClient.get("/products/all");

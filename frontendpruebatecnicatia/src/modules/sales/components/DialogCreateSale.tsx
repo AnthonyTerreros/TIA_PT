@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from "react";
-import { useForm, useFieldArray } from "react-hook-form";
+import { useForm, useFieldArray, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CustomInput } from "@/components/shared/CustomInput";
 import { CustomSelect } from "@/components/shared/CustomSelect";
@@ -13,17 +13,16 @@ import {
 import { Button } from "@/components/ui/button";
 import { IoAdd, IoTrash } from "react-icons/io5";
 import { SaleFormData, saleSchema } from "@/models/validations/saleSchema";
-import { Product, SaleRequest, SelectItem, Shop } from "@/models";
-import { getProductsAll } from "@/services/products.service";
+import { ProductOption, SaleRequest, Shop, ShopOption } from "@/models";
+import {
+  getProductsAll,
+  getProductsByShopId,
+} from "@/services/products.service";
 import { getShopsAll } from "@/services/shop.service";
 import { toast } from "sonner";
 import { registerSale } from "@/services/sales.service";
-
-interface ProductOption extends SelectItem {
-  price: number;
-}
-
-type ShopOption = SelectItem;
+import { productMapper, shopMapper } from "@/utils/mappers";
+import { FaSave } from "react-icons/fa";
 
 interface DialogCreateSale {
   onSaleAdded: VoidFunction;
@@ -68,34 +67,47 @@ export default function DialogCreateSale({ onSaleAdded }: DialogCreateSale) {
     name: "saleDetails",
   });
 
-  // Total
+  const saleDetails = useWatch({ control, name: "saleDetails" });
+
   const total = useMemo(() => {
-    return watch("saleDetails").reduce((acc, item) => {
+    return saleDetails.reduce((acc, item) => {
       const product = products.find((p) => p.value === item.productId);
       return acc + (product ? product.price * item.quantity : 0);
     }, 0);
-  }, [watch("saleDetails")]);
+  }, [saleDetails, products]);
 
   const fetchData = async () => {
     const [dataProductsResult, dataShopsResult] = await Promise.all([
       getProductsAll(),
       getShopsAll(),
     ]);
-    const optionsProducts = dataProductsResult.map((it: Product) => {
-      return {
-        value: it.id,
-        label: it.name,
-      };
-    });
-    const optionsShops = dataShopsResult.map((it: Shop) => {
-      return {
-        value: it.id,
-        label: it.name,
-      };
-    });
+    const optionsProducts = productMapper(dataProductsResult);
+    const optionsShops = shopMapper(dataShopsResult);
     setProducts(optionsProducts);
     setShops(optionsShops);
   };
+
+  const shopId = watch("shopId");
+
+  const fetchProductsByShopId = async (shopId: number) => {
+    try {
+      const dataResponse = await getProductsByShopId(shopId);
+      if (dataResponse.status === 404) {
+        toast.info("La tienda no tiene productos registrados.");
+        return;
+      }
+      const optionsProducts = productMapper(dataResponse.data);
+      setProducts(optionsProducts);
+    } catch (error: any) {
+      toast.error("Ocurrio un error. Intenta mas tarde.", error.message);
+    }
+  };
+
+  useEffect(() => {
+    if (shopId > 0) {
+      fetchProductsByShopId(shopId);
+    }
+  }, [shopId]);
 
   useEffect(() => {
     fetchData();
@@ -103,24 +115,29 @@ export default function DialogCreateSale({ onSaleAdded }: DialogCreateSale) {
 
   const onSubmit = async (data: SaleFormData) => {
     const saleData = {
-      ...data,
+      paymentMethod: data.paymentMethod,
       total,
       purchaseDate: new Date().toISOString(),
       userId: 1,
+      saleDTODetails: data.saleDetails,
+      shopId: data.shopId,
     } as SaleRequest;
-    console.log("Venta registrada:", saleData);
     try {
       const responseApi = await registerSale(saleData);
       if (responseApi.status !== 201) {
-        toast.error("Ocurrio un error. Intenta de nuevo.");
+        toast.error(
+          `Ocurrio un error. Intenta de nuevo. \nMensaje: ${responseApi.data}`
+        );
         return;
       }
-      toast.success("Producto Creado Sastifactoriamente.");
+      toast.success("Venta Creada Sastifactoriamente.");
       reset();
       onSaleAdded();
       setIsOpen(false);
     } catch (ex: any) {
-      toast.error("Ocurrio un error. Intenta mas tarde.");
+      toast.error(
+        `Ocurrio un error. Intenta mas tarde. \nMensaje: ${ex.response.data}`
+      );
     }
   };
 
@@ -160,7 +177,6 @@ export default function DialogCreateSale({ onSaleAdded }: DialogCreateSale) {
             />
           </div>
 
-          {/* Productos y Cantidades */}
           {fields.map((field, index) => (
             <div key={field.id} className="flex items-center space-x-4">
               <CustomSelect
@@ -189,7 +205,12 @@ export default function DialogCreateSale({ onSaleAdded }: DialogCreateSale) {
             </div>
           ))}
 
-          {/* Botón para agregar más productos */}
+          {errors.saleDetails?.saleDetails?.message && (
+            <p className="text-red-500 text-sm">
+              {errors.saleDetails?.saleDetails?.message}
+            </p>
+          )}
+
           <Button
             type="button"
             onClick={() => append({ productId: 0, quantity: 1 })}
@@ -197,13 +218,12 @@ export default function DialogCreateSale({ onSaleAdded }: DialogCreateSale) {
             Agregar Producto
           </Button>
 
-          {/* Total Calculado */}
           <div className="text-xl font-semibold">
             Total: ${total.toFixed(2)}
           </div>
 
-          {/* Botón para guardar */}
           <Button type="submit" className="w-full">
+            <FaSave size={10} />
             Guardar Venta
           </Button>
         </form>

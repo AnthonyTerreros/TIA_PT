@@ -49,4 +49,9 @@ public class ProductServiceImpl implements ProductService {
         return productMapper.toDto(productEntity);
     }
 
+    @Override
+    public List<ProductDTO> findAvailableProductsByShopId(Long shopId) {
+        return productRepository.findAvailableProductsByShopId(shopId).stream().map(productMapper::toDto).collect(Collectors.toList());
+    }
+
 }

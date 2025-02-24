@@ -40,7 +40,7 @@ export interface Sale {
   user?: User;
   shopId: number;
   shop?: Shop;
-  saleDetails: SaleDetail[];
+  saleDTODetails: SaleDetail[];
   paymentMethod: string;
   total: number;
   purchaseDate: string;
@@ -75,10 +75,16 @@ export interface ShopFilters extends Pageable {}
 export interface SaleFilters extends Pageable {}
 
 export interface ShopAssignProductRequest {
-  inventoryRequestDTOList: InventoryRequest[]
+  inventoryRequestDTOList: InventoryRequest[];
 }
 
 export interface SelectItem {
   label: string;
   value: number;
 }
+
+export interface ProductOption extends SelectItem {
+  price: number;
+}
+
+export type ShopOption = SelectItem;
