@@ -1,21 +1,7 @@
-services:
-  backend:
-    build: ./backend_prueba_tecnica_tia
-    container_name: backend_app
-    restart: always
-    ports:
-      - "8080:8080"
-    depends_on:
-      postgres:
-        condition: service_healthy
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/DBTIAPTGestionVentas
-      SPRING_DATASOURCE_USERNAME: postgres
-      SPRING_DATASOURCE_PASSWORD: postgres
-    networks:
-      - app_network
+version: "3.8"
 
-  postgres:
+services:
+  db:
     image: postgres:15-alpine
     container_name: postgres_db
     restart: always
@@ -27,12 +13,29 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres -d DBTIAPTGestionVentas"]
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 10s
       timeout: 5s
       retries: 5
+    networks:
+      - app_network
+
+  backend:
+    build: ./backend_prueba_tecnica_tia
+    container_name: backend_app
+    restart: always
+    ports:
+      - "8080:8080"
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/DBTIAPTGestionVentas?autoReconnect=true
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+    networks:
+      - app_network
 
   frontend:
     build: ./frontendpruebatecnicatia
