@@ -1,5 +1,6 @@
 package com.tiapt.backend_prueba_tecnica_tia.services.impl;
 
+import com.tiapt.backend_prueba_tecnica_tia.exception.exceptions.ProductDuplicatedSKUException;
 import com.tiapt.backend_prueba_tecnica_tia.persistence.entities.ProductEntity;
 import com.tiapt.backend_prueba_tecnica_tia.persistence.repositories.ProductRepository;
 import com.tiapt.backend_prueba_tecnica_tia.services.interfaces.ProductService;
@@ -44,6 +45,10 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductDTO registerProduct(ProductRequestDTO productRequestDTO) {
+        Optional<ProductEntity> productEntityExists = productRepository.findBySKU(productRequestDTO.getSKU());
+        if (productEntityExists.isPresent()) {
+            throw new ProductDuplicatedSKUException(productEntityExists.get().getId());
+        }
         ProductEntity productEntity = productMapper.toEntity(productRequestDTO);
         productEntity = productRepository.save(productEntity);
         return productMapper.toDto(productEntity);
@@ -51,7 +56,8 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<ProductDTO> findAvailableProductsByShopId(Long shopId) {
-        return productRepository.findAvailableProductsByShopId(shopId).stream().map(productMapper::toDto).collect(Collectors.toList());
+        return productRepository.findAvailableProductsByShopId(shopId).stream().map(productMapper::toDto)
+                .collect(Collectors.toList());
     }
 
 }

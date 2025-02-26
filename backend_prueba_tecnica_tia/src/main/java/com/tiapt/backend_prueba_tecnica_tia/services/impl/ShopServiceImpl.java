@@ -1,5 +1,6 @@
 package com.tiapt.backend_prueba_tecnica_tia.services.impl;
 
+import com.tiapt.backend_prueba_tecnica_tia.exception.exceptions.ProductAlreadyExists;
 import com.tiapt.backend_prueba_tecnica_tia.persistence.entities.SaleEntity;
 import com.tiapt.backend_prueba_tecnica_tia.persistence.entities.ShopEntity;
 import com.tiapt.backend_prueba_tecnica_tia.persistence.repositories.ShopRepository;
@@ -13,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -38,7 +40,12 @@ public class ShopServiceImpl implements ShopService {
 
     @Override
     public ShopDTO createShop(ShopRequestDTO shopRequestDTO) {
+        Optional<ShopEntity> shopEntityExists = shopRepository.findByName(shopRequestDTO.getName());
+        if(shopEntityExists.isPresent()) {
+            throw new ProductAlreadyExists(shopRequestDTO.getName());
+        }
         ShopEntity shopEntity = shopMapper.toEntity(shopRequestDTO);
+        shopEntity.setName(shopEntity.getName().toUpperCase());
         shopEntity = shopRepository.save(shopEntity);
         return shopMapper.toDto(shopEntity);
     }

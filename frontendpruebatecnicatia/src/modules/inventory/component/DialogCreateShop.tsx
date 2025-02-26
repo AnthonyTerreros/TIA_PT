@@ -63,7 +63,7 @@ export default function DialogCreateShop({
   };
 
   return (
-    <Dialog open={isOpen} onOpenChange={setIsOpen}>
+    <Dialog open={isOpen} onOpenChange={setIsOpen} >
       <DialogTrigger asChild>
         <Button>
           <IoAdd className="size-6" />

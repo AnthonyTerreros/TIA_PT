@@ -1,5 +1,6 @@
 package com.tiapt.backend_prueba_tecnica_tia.services.models.inventory.dtos;
 
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 public class ProductRequestDTO {
@@ -11,6 +12,7 @@ public class ProductRequestDTO {
     private Double price;
 
     @NotNull(message = "SKU es requido")
+    @NotBlank(message = "SKU NO debe estar vacio.")
     private String SKU;
 
     @NotNull(message = "Categoria es requido")
@@ -19,12 +21,12 @@ public class ProductRequestDTO {
     private String description;
     private Integer state;
 
-
     public ProductRequestDTO() {
 
     }
 
-    public ProductRequestDTO(String name, Integer state, String description, String category, String SKU, Double price) {
+    public ProductRequestDTO(String name, Integer state, String description, String category, String SKU,
+            Double price) {
         this.name = name;
         this.state = state;
         this.description = description;

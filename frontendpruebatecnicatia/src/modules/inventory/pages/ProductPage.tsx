@@ -36,7 +36,7 @@ export default function ProductPage() {
     { name: "SKU", accessKey: "SKU" },
     { name: "Category", accessKey: "category" },
     { name: "Descripcion", accessKey: "description" },
-    { name: "Estado", accessKey: "state" },
+    // { name: "Estado", accessKey: "state" },
   ];
 
   const fetchData = async () => {

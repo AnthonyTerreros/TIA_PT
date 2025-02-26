@@ -18,6 +18,10 @@ interface DynamicTableProps<T> {
   renderActions?: (item: T) => React.ReactNode;
 }
 
+const getNestedValue = (obj: any, path: string): any => {
+  return path.split(".").reduce((acc, key) => acc?.[key], obj);
+};
+
 export function DynamicTable<T extends Record<string, any>>({
   headers,
   data,
@@ -44,7 +48,7 @@ export function DynamicTable<T extends Record<string, any>>({
             <TableRow key={rowIndex} className="hover:bg-gray-50">
               {headers.map((header, colIndex) => (
                 <TableCell key={colIndex} className="py-2 px-4 border-b">
-                  {row[header.accessKey]}
+                  {getNestedValue(row, header.accessKey)}
                 </TableCell>
               ))}
               {renderActions && (

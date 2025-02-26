@@ -33,7 +33,7 @@ export default function SalePage() {
     { name: "Monto", accessKey: "total" },
     { name: "Metodo de Pago", accessKey: "paymentMethod" },
     { name: "Fecha de la Venta", accessKey: "purchaseDate" },
-    { name: "Tienda", accessKey: "shopId" },
+    { name: "Tienda", accessKey: "shop.name" },
   ];
 
   const fetchData = async () => {

@@ -1,19 +1,25 @@
 package com.tiapt.backend_prueba_tecnica_tia.services.models.inventory.dtos;
 
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 public class ShopRequestDTO {
 
     @NotNull(message = "Nombre es requido")
+    @NotBlank(message = "Nombre no debe estar vacio.")
     private String name;
 
     @NotNull(message = "Address es requido")
+    @NotBlank(message = "Address no debe estar vacio.")
     private String address;
 
     @NotNull(message = "Contacto es requido")
+    @NotBlank(message = "Contacto no debe estar vacio.")
+
     private String contact;
 
     @NotNull(message = "Telefono es requido")
+    @NotBlank(message = "Telefono no debe estar vacio.")
     private String phone;
 
     private String openingTime;
@@ -23,7 +29,8 @@ public class ShopRequestDTO {
 
     }
 
-    public ShopRequestDTO(String name, String openingTime, String phone, String contact, String address, String closingTime) {
+    public ShopRequestDTO(String name, String openingTime, String phone, String contact, String address,
+            String closingTime) {
         this.name = name;
         this.openingTime = openingTime;
         this.phone = phone;

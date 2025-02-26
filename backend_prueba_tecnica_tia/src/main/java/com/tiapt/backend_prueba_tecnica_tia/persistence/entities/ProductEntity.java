@@ -18,7 +18,7 @@ public class ProductEntity {
     @Column(name = "price")
     private Double price;
 
-    @Column(name = "SKU")
+    @Column(name = "SKU", unique = true)
     private String SKU;
 
     @Column(name = "category")
@@ -52,7 +52,8 @@ public class ProductEntity {
 
     }
 
-    public ProductEntity(Long id, LocalDateTime updatedAt, LocalDateTime createdAt, Integer state, String description, String category, String SKU, Double price, String name) {
+    public ProductEntity(Long id, LocalDateTime updatedAt, LocalDateTime createdAt, Integer state, String description,
+            String category, String SKU, Double price, String name) {
         this.id = id;
         this.updatedAt = updatedAt;
         this.createdAt = createdAt;
@@ -63,7 +64,6 @@ public class ProductEntity {
         this.price = price;
         this.name = name;
     }
-
 
     public Long getId() {
         return id;

@@ -19,7 +19,8 @@ public class ShopDTO {
 
     }
 
-    public ShopDTO(String name, Long id, String address, String contact, String phone, String openingTime, String closingTime) {
+    public ShopDTO(String name, Long id, String address, String contact, String phone, String openingTime,
+            String closingTime) {
         this.name = name;
         this.id = id;
         this.address = address;

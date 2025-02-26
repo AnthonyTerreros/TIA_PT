@@ -1,6 +1,6 @@
 -- Crear la base de datos
 -- CREATE DATABASE DBTIAPTGestionVentas;
--- \c DB_PRUEBA1;
+\c DB_PRUEBA1;
 
 -- Tabla de Usuarios
 CREATE TABLE users (
